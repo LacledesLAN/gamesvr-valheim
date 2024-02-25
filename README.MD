@@ -5,13 +5,14 @@ themselves fit for the halls of Valhalla. As one such, the player begins with no
 the Norse afterlife, they must defeat the evils that stalk Valheim. Led only by their instincts and occasional hints
 from a raven, the player must prepare to fight the sworn enemies of Odin himself.
 
-![Valheim Logo](https://raw.githubusercontent.com/LacledesLAN/gamesvr-valheim/main/.misc/logo_valheim.png "Valheim Dedicated Server in Docker")
+![Valheim Logo](https://raw.githubusercontent.com/LacledesLAN/gamesvr-valheim/main/.midocs/assets/logo_valheim.png "Valheim Dedicated Server in Docker")
 
 ## About The Server
 
 This repository is maintained by [Laclede's LAN](https://lacledeslan.com). This image has been optimized for LAN party
 events where internet access can be limited, oversaturated and/or unreliable. This image is not recommended for use as
-an "always on" server, as it lacks maintenance tooling, such ass the ability to self-update.
+an "always on" server, as it has configurations that can only be set at build time and lacks common maintenance tooling
+(such as the ability to self-update).
 
 If any documentation is unclear or it has any issues please see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
@@ -26,7 +27,7 @@ docker pull lacledeslan/gamesvr-valheim;
 ### Run Interactive Server
 
 ```shell
-docker run -it --rm -p 2456-2458:2456-2458/udp --cap-add=sys_nice lacledeslan/gamesvr-valheim /app/valheim_server.x86_64 -name "My Valheim" -nographics -batchmode -password "PASSWORD" -port 2456 -world "Dedicated" -public 0
+docker run -it --rm -p 2456-2457:2456-2457/udp -v /app/.config/unity3d/IronGate/Valheim --cap-add=sys_nice lacledeslan/gamesvr-valheim /app/valheim_server.x86_64 -name "My Valheim" -nographics -batchmode -password "PASSWORD" -port 2456 -world "Dedicated" -public 0
 ```
 
 ## Getting Started with Game Servers in Docker
