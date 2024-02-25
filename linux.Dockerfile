@@ -47,7 +47,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends --no-install-su
     chmod +x /usr/bin/tini &&\
     # User Setup
     useradd --home /app --gid root --system VALHEIM &&\
-        mkdir -p /app &&\
+        mkdir -p /app/.config/unity3d/IronGate/Valheim &&\
         chown VALHEIM:root -R /app &&\
         chmod -R u+rw /app &&\
     # Clean up
