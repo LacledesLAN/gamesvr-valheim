@@ -11,6 +11,9 @@ FROM debian:bookworm-slim
 ARG BUILDNODE=unspecified
 ARG SOURCE_COMMIT=unspecified
 
+ENV SteamAppId=892970
+ENV LD\_LIBRARY\_PATH=./linux64:$LD\_LIBRARY\_PATH
+
 HEALTHCHECK NONE
 
 RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests `
@@ -23,8 +26,7 @@ ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 # Set up Enviornment
 RUN useradd --home /app --gid root --system VALHEIM &&`
     mkdir -p /app &&`
-    chown VALHEIM:root -R /app &&`
-    export SteamAppId=892970 LD\_LIBRARY\_PATH=./linux64:$LD\_LIBRARY\_PATH;
+    chown VALHEIM:root -R /app;
 
 # `RUN true` lines are work around for https://github.com/moby/moby/issues/36573
 COPY --chown=VALHEIM:root --from=STEAMCMD /output /app
