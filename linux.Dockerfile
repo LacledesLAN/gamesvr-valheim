@@ -11,8 +11,8 @@ RUN rm -rf /output/docker /output/docker_start_server.sh /output/start_server.sh
 #=======================================================================`
 FROM debian:bookworm-slim
 
-ARG BUILDNODE=unspecified
 ARG BUILD_DATE
+ARG BUILD_NODE=unspecified
 ARG SOURCE_COMMIT=unspecified
 ARG TIMEZONE=UTC
 
@@ -23,7 +23,9 @@ HEALTHCHECK NONE
 
 RUN if [ -z "$BUILD_DATE" ]; then export BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ'); fi
 
-LABEL org.opencontainers.image.title=" Valheim Dedicated Server" \
+LABEL maintainer="contact@lacledeslan.com" \
+      com.lacledeslan.build-node=$BUILD_NODE \
+      org.opencontainers.image.title=" Valheim Dedicated Server" \
       org.opencontainers.image.description="Valheim dedicated server, optimized for LAN-party environments." \
       org.opencontainers.image.url="https://lacledeslan.com" \
       org.opencontainers.image.source="https://github.com/LacledesLAN/gamesvr-valheim" \
