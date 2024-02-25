@@ -1,8 +1,12 @@
 FROM lacledeslan/steamcmd:linux as STEAMCMD
 
+# Download Dedicate Server
 RUN echo "\n\nDownloading Valheim Dedicated Server via SteamCMD"; \
     mkdir --parents /output; \
     /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 896660 validate +quit;
+
+# Delete Files We Don't Need
+RUN rm -rf /output/docker /output/docker_start_server.sh /output/start_server.sh /output/start_server_xterm.sh || true;
 
 #=======================================================================`
 FROM debian:bookworm-slim
@@ -29,9 +33,7 @@ LABEL org.opencontainers.image.title=" Valheim Dedicated Server" \
 
 RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests \
         ca-certificates libatomic1 libpulse-dev libpulse0 locales locales-all tini tmux tzdata &&\
-    apt-get clean &&\
-    rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* &&\
-    # locales
+    # Locales
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen &&\
     dpkg-reconfigure --frontend=noninteractive locales &&\
     update-locale LANG=en_US.UTF-8 &&\
@@ -41,10 +43,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends --no-install-su
     dpkg-reconfigure --frontend noninteractive tzdata &&\
     # Tini
     chmod +x /usr/bin/tini &&\
-    # User
+    # User Setup
     useradd --home /app --gid root --system VALHEIM &&\
         mkdir -p /app &&\
-        chown VALHEIM:root -R /app;
+        chown VALHEIM:root -R /app &&\
+        chmod -R u+rw /app &&\
+    # Clean up
+    apt-get clean &&\
+    rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
 # `RUN true` lines are work around for https://github.com/moby/moby/issues/36573
 COPY --chown=VALHEIM:root --from=STEAMCMD /output /app
