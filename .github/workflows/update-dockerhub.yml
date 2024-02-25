@@ -16,6 +16,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: lacledeslan/gamesvr-valkheim
+          repository: lacledeslan/gamesvr-valheim
           short-description: "Valheim Dedicated Server in Docker"
           readme-filepath: ./README.MD
