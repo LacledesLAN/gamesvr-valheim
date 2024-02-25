@@ -13,10 +13,8 @@ ARG SOURCE_COMMIT=unspecified
 
 HEALTHCHECK NONE
 
-EXPOSE 2456-2458/udp
-
 RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests `
-        ca-certificates lib32gcc1 lib32stdc++6 libsdl2-2.0-0:i386 locales locales-all tini tmux &&`
+        ca-certificates libatomic1 libpulse-dev libpulse0 locales locales-all tini tmux &&`
     apt-get clean &&`
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
