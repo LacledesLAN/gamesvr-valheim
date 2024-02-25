@@ -8,6 +8,7 @@ RUN echo "\n\nDownloading Valheim Dedicated Server via SteamCMD"; \
 FROM debian:bookworm-slim
 
 ARG BUILDNODE=unspecified
+ARG BUILD_DATE
 ARG SOURCE_COMMIT=unspecified
 ARG TIMEZONE=UTC
 
@@ -15,6 +16,16 @@ ENV LANG=en_US.UTF-8
 ENV LD_LIBRARY_PATH=./linux64:$LD_LIBRARY_PATH SteamAppId=892970
 
 HEALTHCHECK NONE
+
+RUN if [ -z "$BUILD_DATE" ]; then export BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ'); fi
+
+LABEL org.opencontainers.image.title=" Valheim Dedicated Server" \
+      org.opencontainers.image.description="Valheim dedicated server, optimized for LAN-party environments." \
+      org.opencontainers.image.url="https://lacledeslan.com" \
+      org.opencontainers.image.source="https://github.com/LacledesLAN/gamesvr-valheim" \
+      org.opencontainers.image.created=$BUILD_DATE \
+      org.opencontainers.image.revision=$SOURCE_COMMIT \
+      org.opencontainers.image.vendor="Laclede's LAN"
 
 RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests \
         ca-certificates libatomic1 libpulse-dev libpulse0 locales locales-all tini tmux tzdata &&\

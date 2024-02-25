@@ -9,9 +9,9 @@ from a raven, the player must prepare to fight the sworn enemies of Odin himself
 
 ## About The Server
 
-This repository is maintained by [Laclede's LAN](https://lacledeslan.com). This image has been optimized for our LAN
-party events, where internet access can be limited, oversaturated and/or unreliable. This image is not recommended for
-use as an "always on" server, as it lacks the ability to self-update.
+This repository is maintained by [Laclede's LAN](https://lacledeslan.com). This image has been optimized for LAN party
+events where internet access can be limited, oversaturated and/or unreliable. This image is not recommended for use as
+an "always on" server, as it lacks maintenance tooling, such ass the ability to self-update.
 
 If any documentation is unclear or it has any issues please see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
